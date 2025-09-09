@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Download, TrendingUp } from "lucide-react";
 import { SentimentChart } from "@/components/dashboard/SentimentChart";
-import { TrendChart } from "@/components/dashboard/TrendChart";
+import { SummaryInsights } from "@/components/dashboard/SummaryInsights";
 import { WordCloudComponent } from "@/components/dashboard/WordCloud";
 import { KeywordTable } from "@/components/dashboard/KeywordTable";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
@@ -64,11 +64,11 @@ const Dashboard = () => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Sentiment Trend Over Time</CardTitle>
-            <CardDescription>Daily sentiment analysis for the past 30 days</CardDescription>
+            <CardTitle>Summarize</CardTitle>
+            <CardDescription>Key findings and actionable insights from sentiment analysis</CardDescription>
           </CardHeader>
           <CardContent>
-            <TrendChart />
+            <SummaryInsights />
           </CardContent>
         </Card>
       </div>
