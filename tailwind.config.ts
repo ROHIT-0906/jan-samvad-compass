@@ -47,6 +47,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "gov-blue": {
+          DEFAULT: "hsl(var(--gov-blue))",
+          dark: "hsl(var(--gov-blue-dark))",
+          light: "hsl(var(--gov-blue-light))",
+        },
+        "gov-gray": {
+          DEFAULT: "hsl(var(--gov-gray))",
+          dark: "hsl(var(--gov-gray-dark))",
+        },
+        sentiment: {
+          positive: "hsl(var(--sentiment-positive))",
+          negative: "hsl(var(--sentiment-negative))",
+          neutral: "hsl(var(--sentiment-neutral))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
