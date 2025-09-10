@@ -6,7 +6,7 @@ import { SummaryInsights } from "@/components/dashboard/SummaryInsights";
 import { WordCloudComponent } from "@/components/dashboard/WordCloud";
 import { KeywordTable } from "@/components/dashboard/KeywordTable";
 import { SummaryCard } from "@/components/dashboard/SummaryCard";
-import { FeedbackSummarizer } from "@/components/dashboard/FeedbackSummarizer";
+
 
 const Dashboard = () => {
   return (
@@ -74,8 +74,6 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Feedback Summarizer */}
-      <FeedbackSummarizer />
 
       {/* Word Cloud and Keywords */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
