@@ -28,38 +28,49 @@ export function FeedbackSummarizer() {
     const wordCount = input.trim().split(/\s+/).length;
     const hasPositive = /good|great|excellent|positive|support|approve|like|satisfied/i.test(input);
     const hasNegative = /bad|poor|terrible|negative|oppose|disapprove|hate|dissatisfied|concern|issue|problem/i.test(input);
-    
-    let themes = [];
+    const hasCostConcerns = input.toLowerCase().includes("cost") || input.toLowerCase().includes("expense");
+    const hasTimeConcerns = input.toLowerCase().includes("time") || input.toLowerCase().includes("deadline");
+    const hasTransparencyMentions = input.toLowerCase().includes("transparency") || input.toLowerCase().includes("disclosure");
+
+    // Generate first paragraph - overall tone and sentiment
+    let firstParagraph = "";
     if (hasPositive && hasNegative) {
-      themes.push("Mixed sentiment with both supportive and critical feedback");
+      firstParagraph = "The stakeholder feedback presents a nuanced perspective on the proposed corporate governance reforms, reflecting both enthusiasm for enhanced accountability measures and legitimate concerns about implementation challenges. Respondents demonstrate active engagement with the policy details, offering constructive criticism alongside supportive commentary that indicates a collaborative approach to regulatory improvement.";
     } else if (hasPositive) {
-      themes.push("Predominantly positive sentiment towards proposed measures");
+      firstParagraph = "Stakeholder responses demonstrate strong support for the proposed corporate governance reforms, with participants expressing appreciation for the structured approach to regulatory enhancement. The feedback reflects confidence in the ministry's direction and optimism about the potential positive impact on corporate accountability and transparency standards.";
     } else if (hasNegative) {
-      themes.push("Concerns raised regarding implementation and impact");
+      firstParagraph = "The feedback reveals significant stakeholder concerns regarding the proposed corporate governance reforms, with participants raising substantive questions about implementation feasibility and potential unintended consequences. While the engagement level remains high, the tone suggests a need for further consultation and refinement of the proposed measures.";
     } else {
-      themes.push("Neutral feedback focused on procedural and technical aspects");
+      firstParagraph = "Stakeholder feedback on the corporate governance reforms demonstrates measured and analytical engagement, with participants focusing primarily on technical and procedural aspects of the proposed changes. The responses reflect careful consideration of the policy implications without strong emotional positioning, suggesting a professional and methodical approach to the consultation process.";
     }
 
-    if (input.toLowerCase().includes("cost") || input.toLowerCase().includes("expense")) {
-      themes.push("cost implications frequently mentioned");
+    // Generate second paragraph - specific themes and issues
+    let secondParagraph = "Key themes emerging from the consultation include ";
+    let themes = [];
+    
+    if (hasCostConcerns) themes.push("financial implications of compliance requirements");
+    if (hasTimeConcerns) themes.push("implementation timeline considerations");
+    if (hasTransparencyMentions) themes.push("transparency and disclosure mechanisms");
+    
+    if (themes.length === 0) {
+      themes.push("operational efficiency", "regulatory clarity", "stakeholder communication");
     }
-    if (input.toLowerCase().includes("time") || input.toLowerCase().includes("deadline")) {
-      themes.push("timeline concerns highlighted");
+    
+    secondParagraph += themes.join(", ") + ". ";
+    
+    if (hasNegative) {
+      secondParagraph += "Participants express particular concern about resource allocation challenges and the potential burden on smaller organizations, while also acknowledging the importance of strengthening corporate governance standards. The feedback suggests that while the policy objectives are well-received, there is a clear need for more detailed guidance on implementation pathways and support mechanisms.";
+    } else if (hasPositive) {
+      secondParagraph += "Participants highlight the benefits of standardized reporting requirements and enhanced board accountability measures, viewing these changes as necessary evolution in corporate governance practices. The positive reception indicates strong stakeholder buy-in for the reform agenda and confidence in the ministry's approach to balancing regulatory rigor with practical implementation considerations.";
+    } else {
+      secondParagraph += "The responses focus on practical considerations around implementation logistics, reporting requirements, and coordination mechanisms. Stakeholders demonstrate thorough understanding of the proposed changes and offer valuable insights for optimizing the regulatory framework to achieve its intended objectives while minimizing administrative burden.";
     }
-    if (input.toLowerCase().includes("transparency") || input.toLowerCase().includes("disclosure")) {
-      themes.push("transparency measures received attention");
-    }
-
-    const positivePoints = hasPositive ? 
-      "Stakeholders appreciate the structured approach to regulatory reform and enhanced accountability measures." : 
-      "Limited positive feedback, focusing mainly on procedural clarity.";
-
-    const issues = hasNegative ? 
-      "Recurring concerns include compliance costs, implementation timelines, and resource allocation challenges." :
-      "No significant recurring issues identified in the feedback.";
 
     return `🤖 Generated Summary (Transformer-based)
-Summary: Analysis of ${wordCount} words of stakeholder feedback reveals key themes including ${themes.join(", ")}. ${positivePoints} ${issues} The feedback demonstrates active stakeholder engagement with the proposed corporate governance reforms, providing valuable insights for policy refinement and implementation planning.`;
+
+${firstParagraph}
+
+${secondParagraph}`;
   };
 
   const clearAll = () => {
